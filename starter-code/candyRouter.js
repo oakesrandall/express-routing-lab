@@ -10,31 +10,29 @@ var candies = [
   { id: 4, name: "Candy Stick", color: "Blue"}
 ];
 
-
-
-//What would need to go into candies
-//in order to pass our first test?
 router.get('/', function(req, res) {
   res.send(candies);
 });
 
-router.get('/:id/', function(req, res) {
+router.get('/:id', function(req, res) {
   res.send(candies[req.params.id -1]);
 });
 
 router.post('/', function(req, res){
-  res.send("Made a POST request to /candies");
+    var newCandy = {'_id': candies.length += 1, 'name': req.body.name, 'color': req.body.color};
+    res.send(newCandy);  
 });
 
-// router.put
+router.put('/:id', function(req, res) {
+    var updateCandy = candies[req.params.id-1];
+    updateCandy.name = res.body.name;
+    updateCandy.color = res.body.color;
+    res.send(updateCandy);
+});
 
-
-// 	// Hint: we want all candies in JSON format
-// });
-
-// Fill out the rest of the routes here
-// router.get("/candies", function(req, res){
-//   res.send(candies);
-// });
+router.delete('/:id', function(req, res) {
+    candies.splice(req.params.id-1, 1);
+    res.send(req.body);
+});
 
 module.exports = router;
