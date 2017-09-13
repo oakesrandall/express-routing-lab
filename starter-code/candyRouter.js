@@ -26,18 +26,18 @@ router.post('/', function(req, res){
     res.send(newCandy);  
 });
 
-router.put('/:id', function(req, res) {
-    console.log('hit put route on /: ' + req.params.id);
-    var updateCandy = candies[req.params.id-1];
-    updateCandy.name = res.body.name;
-    updateCandy.color = res.body.color;
-    res.send(updateCandy);
+router.put('/:id', function(req,res) {
+    var current = candies[req.params.id-1];
+    current.name = req.body.name;
+    current.color = req.body.color;
+    res.send("changed candy");
 });
 
-router.delete('/:id', function(req, res) {
-    console.log('hit delete route on /:id ' + req.params.id);
-    candies.splice(req.params.id-1, 1);
-    res.send(req.body);
+
+router.delete('/:id',function(req,res){
+    candies[req.params.id-1] = null;
+    console.log(candies[req.params.id-1]);
+    res.send("deleted candy");
 });
 
 module.exports = router;
